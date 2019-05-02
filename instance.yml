@@ -1,0 +1,26 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+      - name: create ec2 instance
+        ec2:
+          aws_access_key: "AKIASJRT2NHSVPKGCBUJ"
+          aws_secret_key: "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"
+          image: ami-54d2a63b
+          wait: yes
+          instance_type: t2.micro
+          group_id: sg-0e8a59b791b422bb6
+          region: ap-south-1
+          count_tag:
+            Name: apacheserver
+          exact_count: 1
+        register: ec2
+
+      - name: Stop Instances
+        local_action:
+            module: ec2
+            aws_access_key: "AKIASJRT2NHSVPKGCBUJ"
+            aws_secret_key: "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"
+            region: ap-south-1
+            instance_ids: i-088ee0b3f4dc64dc2
+            state: running

@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  remote_user: tej
+
+  tasks:
+  - name: Delete tomcat-users.xml
+    file:
+      path: /opt/tomcat/conf/tomcat-users.xml    
+      state: absent
+
+  - name: Copy tomcat-users.xml from Ansible Control Machine
+    copy:
+      src: tomcat-users.xml
+      dest: /opt/tomcat/conf/
+
+  - name: Restart tomcat
+    service: name=tomcat state=restarted
+

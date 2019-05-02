@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  remote_user: tej
+  tasks:
+  - name: Copy artidacts from NEXUS
+    get_url:
+      url: http://13.233.132.244:8081/nexus/service/local/repositories/ram/content/ram/ram/{{my_version}}/ram-{{my_version}}.war 
+      dest: /opt/tomcat/webapps/
