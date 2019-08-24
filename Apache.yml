@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: install apache2
+    apt: name=apache2 state=present
+
+  - name: delete index.html file
+    file:
+      path: /var/www/html/*
+      state: absent
+
+  - name: copy file
+    copy:
+      src: index.html
+      dest: /var/www/html
